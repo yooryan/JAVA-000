@@ -1,5 +1,9 @@
 package impl;
 
+import org.omg.CORBA.INTERNAL;
+
+import java.util.concurrent.*;
+
 /**
  * 本周作业：（必做）思考有多少种方式，在main函数启动一个新线程或线程池，
  * 异步运行一个方法，拿到这个方法的返回值后，退出主线程？
@@ -7,29 +11,21 @@ package impl;
  *
  * 一个简单的代码参考：
  */
-public class HomeworkImpl02 {
+public class FutureCase {
     
-    public static void main(String[] args) throws InterruptedException {
-        
+    public static void main(String[] args) throws Exception {
+
         long start=System.currentTimeMillis();
-        // 在这里创建一个线程或线程池，
-        final int[] result = {0};
-        Thread thread = new Thread(new Runnable() {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Future<Integer> submit = executor.submit(new Callable<Integer>() {
             @Override
-            public void run() {
-                result[0] = sum();
+            public Integer call() throws Exception {
+                return sum();
             }
         });
-        // 异步执行 下面方法
-        thread.start();
-        // 确保  拿到result 并输出
-        //直到thread子线程执行完成后才能执行主线程
-        thread.join();
-        System.out.println("异步计算结果为："+ result[0]);
-         
+        System.out.println("异步计算结果为："+submit.get());
         System.out.println("使用时间："+ (System.currentTimeMillis()-start) + " ms");
-        
-        // 然后退出main线程
+        executor.shutdown();
     }
     
     private static int sum() {

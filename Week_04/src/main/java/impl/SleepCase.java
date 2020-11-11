@@ -1,9 +1,5 @@
 package impl;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 /**
  * 本周作业：（必做）思考有多少种方式，在main函数启动一个新线程或线程池，
  * 异步运行一个方法，拿到这个方法的返回值后，退出主线程？
@@ -11,23 +7,22 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * 一个简单的代码参考：
  */
-public class HomeworkImpl09 {
+public class SleepCase {
     
-    public static void main(String[] args) throws Exception {
-
+    public static void main(String[] args) throws InterruptedException {
+        
         long start=System.currentTimeMillis();
-        Lock lock = new ReentrantLock(true);
-        final int[] result = new int[1];
-        Runnable runnable = new Runnable() {
+        int[] result = {0};
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 result[0] = sum();
             }
-        };
-        Thread thread = new Thread(runnable);
+        });
         thread.start();
-
-        System.out.println("异步计算结果为："+ result[0]);
+        //最简单方法  主线程直接睡5秒
+        Thread.sleep(5000);
+        System.out.println("异步计算结果为："+result[0]);
         System.out.println("使用时间："+ (System.currentTimeMillis()-start) + " ms");
     }
     

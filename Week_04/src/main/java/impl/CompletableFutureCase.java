@@ -1,7 +1,5 @@
 package impl;
 
-import org.omg.CORBA.INTERNAL;
-
 import java.util.concurrent.*;
 
 /**
@@ -11,21 +9,16 @@ import java.util.concurrent.*;
  *
  * 一个简单的代码参考：
  */
-public class HomeworkImpl07 {
+public class CompletableFutureCase {
     
     public static void main(String[] args) throws Exception {
 
         long start=System.currentTimeMillis();
-        ExecutorService executor = Executors.newCachedThreadPool();
-        Future<Integer> submit = executor.submit(new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                return sum();
-            }
-        });
-        System.out.println("异步计算结果为："+submit.get());
+        CompletableFuture<Integer> completableFuture =
+                CompletableFuture.supplyAsync(CompletableFutureCase::sum);
+
+        System.out.println("异步计算结果为："+completableFuture.get());
         System.out.println("使用时间："+ (System.currentTimeMillis()-start) + " ms");
-        executor.shutdown();
     }
     
     private static int sum() {

@@ -1,7 +1,5 @@
 package impl;
 
-import java.util.concurrent.CountDownLatch;
-
 /**
  * 本周作业：（必做）思考有多少种方式，在main函数启动一个新线程或线程池，
  * 异步运行一个方法，拿到这个方法的返回值后，退出主线程？
@@ -9,26 +7,29 @@ import java.util.concurrent.CountDownLatch;
  *
  * 一个简单的代码参考：
  */
-public class HomeworkImpl04 {
+public class ThreadJoinCase {
     
     public static void main(String[] args) throws InterruptedException {
         
         long start=System.currentTimeMillis();
-
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        int[] result = {0};
+        // 在这里创建一个线程或线程池，
+        final int[] result = {0};
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 result[0] = sum();
-                countDownLatch.countDown();
             }
         });
+        // 异步执行 下面方法
         thread.start();
-
-        countDownLatch.await();
-        System.out.println("异步计算结果为："+result[0]);
+        // 确保  拿到result 并输出
+        //直到thread子线程执行完成后才能执行主线程
+        thread.join();
+        System.out.println("异步计算结果为："+ result[0]);
+         
         System.out.println("使用时间："+ (System.currentTimeMillis()-start) + " ms");
+        
+        // 然后退出main线程
     }
     
     private static int sum() {

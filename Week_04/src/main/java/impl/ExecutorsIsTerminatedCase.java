@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author linyunrui
  */
-public class HomeworkImpl01 {
+public class ExecutorsIsTerminatedCase {
 
     public static void main(String[] args) throws InterruptedException {
         long start=System.currentTimeMillis();
