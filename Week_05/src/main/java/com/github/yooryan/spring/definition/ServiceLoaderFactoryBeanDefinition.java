@@ -28,5 +28,6 @@ public class ServiceLoaderFactoryBeanDefinition {
             DefaultPeopleFactory next = iterator.next();
             System.out.println(next.createPeople().toString());
         }
+
     }
 }
