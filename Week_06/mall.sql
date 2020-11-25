@@ -48,6 +48,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `store_id` bigint(20) DEFAULT NULL COMMENT '店铺id',
   `order_sn` varchar(64) NOT NULL COMMENT '订单号',
   `pay_type` tinyint(1) DEFAULT NULL COMMENT '支付平台 0-微信 1-支付宝',
   `payment_order_sn` varchar(255) DEFAULT NULL COMMENT '支付订单号',
@@ -65,7 +66,6 @@ CREATE TABLE `order` (
   `confirm_status` tinyint(1) DEFAULT NULL COMMENT '确认收货状态 0-未确认 1-已确认',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
-
 -- ----------------------------
 -- Records of order
 -- ----------------------------
