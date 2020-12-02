@@ -25,9 +25,6 @@ import java.util.concurrent.Executors;
 public class InsertTest {
 
 
-    private static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/miao-mall";
-    private static final String DEFAULT_USER = "root";
-    private static final String DEFAULT_PASSWORD = "mysql";
 
     public static void main(String[] args) throws Exception {
        InsertTest insertTest = new InsertTest();
@@ -113,7 +110,7 @@ public class InsertTest {
      * @throws Exception
      */
     public void threadPoolPreparedStatementAddBatch() throws Exception {
-        final ExecutorService executorService = Executors.newFixedThreadPool(8);
+        final ExecutorService executorService = Executors.newFixedThreadPool(10);
         final CountDownLatch countDownLatch = new CountDownLatch(100);
         long t1 = System.currentTimeMillis();
         System.out.println("=======开始插入=======  t1:"+ t1);

@@ -21,7 +21,7 @@ public class HikariUtil {
 
     static {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/miao-mall");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/miao-mall?rewriteBatchedStatements=true");
         hikariConfig.setUsername("root");
         hikariConfig.setPassword("mysql");
         ds = new HikariDataSource(hikariConfig);
