@@ -1,0 +1,57 @@
+spring:
+  shardingsphere:
+      # 读写分离
+#      masterslave:
+#        load-balance-algorithm-type: round_robin
+#        master-data-source-name: primary
+#        slave-data-source-names: secondary
+        #name: ms
+      #打印sql
+      props:
+        sql:
+          show: true
+      datasource:
+        names: data0,data1
+        data0:
+          type: com.zaxxer.hikari.HikariDataSource
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          jdbc-url: jdbc:mysql://localhost:3306/miao-mall?rewriteBatchedStatements=true&allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: mysql
+        data1:
+          type: com.zaxxer.hikari.HikariDataSource
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          jdbc-url: jdbc:mysql://localhost:3306/miao-mall2?allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: mysql
+
+      sharding:
+        tables:
+            t_order:
+              actual-data-nodes: data$->{0..1}.t_order_$->{0..15}
+              # 主键生成规则 默认使用雪花算法
+              key-generator:
+                column: id
+                type: SNOWFLAKE
+              database-strategy:
+                inline:
+                  shardingColumn: id
+                  algorithmExpression: data$->{id % 2}
+              # 分表策略
+              table-strategy:
+                inline:
+                  # 数据表达式计算 这里是为 id % 2 ==0 就是user_0 如果 id % 2==1 则user_1
+                  algorithm-expression: t_order_$->{user_id % 16}
+                  sharding-column: user_id
+
+#        default-database-strategy:
+#            inline:
+#              #分片键
+#              sharding-column: id
+#              #分片策略
+#              algorithm-expression: primary$->{id % 2}
+#        binding-tables: t_order
+#        default-table-strategy:
+#          inline:
+#            sharding-column: user_id
+#            algorithm-expression: t_order_$->{user_id % 16}

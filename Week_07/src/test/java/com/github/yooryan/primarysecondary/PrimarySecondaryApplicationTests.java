@@ -3,8 +3,7 @@ package com.github.yooryan.primarysecondary;
 import com.github.yooryan.primarysecondary.entity.User;
 import com.github.yooryan.primarysecondary.service.UserService;
 import com.github.yooryan.shardingspherejdbc.web.UserController;
-import com.sun.org.apache.bcel.internal.generic.IUSHR;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

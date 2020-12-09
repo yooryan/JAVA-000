@@ -19,7 +19,7 @@ public class ConnectionUtil {
 
     private static Connection con;
 
-    private static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/miao-mall";
+    private static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/miao-mall?rewriteBatchedStatements=true";
     private static final String DEFAULT_USER = "root";
     private static final String DEFAULT_PASSWORD = "mysql";
 

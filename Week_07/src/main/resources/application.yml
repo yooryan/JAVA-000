@@ -1,29 +1,37 @@
 spring:
   shardingsphere:
-    # 读写分离
-    masterslave:
-      load-balance-algorithm-type: round_robin
-      master-data-source-name: primary
-      slave-data-source-names: secondary
-      name: ms
-    #打印sql
-    props:
-      sql:
-        show: true
-    datasource:
-      names: primary,secondary
-      primary:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/miao-mall?rewriteBatchedStatements=true&allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: mysql
-      secondary:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3307/miao-mall?allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: mysql
+    enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/working_hours_system?rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: mysql
+#  shardingsphere:
+#    # 读写分离
+#    masterslave:
+#      load-balance-algorithm-type: round_robin
+#      master-data-source-name: primary
+#      slave-data-source-names: secondary
+#      name: ms
+#    #打印sql
+#    props:
+#      sql:
+#        show: true
+#    datasource:
+#      names: primary,secondary
+#      primary:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        jdbc-url: jdbc:mysql://localhost:3306/miao-mall?rewriteBatchedStatements=true&allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+#        username: root
+#        password: mysql
+#      secondary:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        jdbc-url: jdbc:mysql://localhost:3307/miao-mall?allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+#        username: root
+#        password: mysql
+#
+#
 #
 #  datasource:
 #    primary:
@@ -38,3 +46,6 @@ spring:
 #      jdbc-url: jdbc:mysql://localhost:3307/miao-mall?allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
 #      username: root
 #      password: mysql
+#    url: jdbc:mysql://localhost:3306/miao-mall?rewriteBatchedStatements=true&allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: mysql

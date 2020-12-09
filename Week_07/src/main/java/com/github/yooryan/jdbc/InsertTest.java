@@ -1,19 +1,15 @@
 package com.github.yooryan.jdbc;
 
-import ch.qos.logback.core.pattern.ConverterUtil;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.github.yooryan.jdbc.util.ConnectionUtil;
 import com.github.yooryan.jdbc.util.HikariUtil;
-import org.apache.catalina.Executor;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.util.StopWatch;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.security.PublicKey;
+import javax.swing.plaf.metal.MetalIconFactory;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.Collection;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -22,15 +18,19 @@ import java.util.concurrent.Executors;
 /**
  * @author linyunrui
  */
+@SpringBootApplication
 public class InsertTest {
 
 
-
     public static void main(String[] args) throws Exception {
-       InsertTest insertTest = new InsertTest();
-       // insertTest.preparedStatementAddBatch();
-       // insertTest.statementAddBatch();
-        insertTest.threadPoolPreparedStatementAddBatch();
+        InsertTest insertTest = new InsertTest();
+
+
+        for (int i = 0; i < 8; i++) {
+            insertTest.threadPoolPreparedStatementAddBatch();
+            //  insertTest.preparedStatementAddBatch();
+        }
+        // insertTest.statementAddBatch();
     }
 
 
@@ -105,6 +105,7 @@ public class InsertTest {
         }
     }
 
+
     /**
      * statement多线程插入
      * @throws Exception
@@ -145,30 +146,32 @@ public class InsertTest {
     }
 
     private void batchData(PreparedStatement preparedStatement, int i) throws SQLException {
-        preparedStatement.setLong(1, 1L);
-        preparedStatement.setLong(2, 1L);
-        preparedStatement.setString(3, UUID.randomUUID().toString());
-        preparedStatement.setInt(4, 1);
-        preparedStatement.setString(5, UUID.randomUUID().toString());
-        preparedStatement.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+        final Random random = new Random();
+        final long l = random.nextLong();
+        preparedStatement.setLong(1,   IdWorker.getId());
+        preparedStatement.setLong(2,   IdWorker.getId());
+        preparedStatement.setLong(3,   IdWorker.getId());
+        preparedStatement.setString(4, UUID.randomUUID().toString());
+        preparedStatement.setInt(5, 1);
+        preparedStatement.setString(6, UUID.randomUUID().toString());
         preparedStatement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-        preparedStatement.setInt(8, 1);
-        preparedStatement.setString(9, "备注" + i);
-        preparedStatement.setString(10, "运单号" + i);
-        preparedStatement.setString(11, "收件人" + i);
-        preparedStatement.setString(12, "号码" + i);
-        preparedStatement.setString(13, "省份" + i);
-        preparedStatement.setString(14, "城市" + i);
-        preparedStatement.setString(15, "地区" + i);
-        preparedStatement.setString(16, "地址" + i);
-        preparedStatement.setInt(17, 0);
+        preparedStatement.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
+        preparedStatement.setInt(9, 1);
+        preparedStatement.setString(10, "备注" + i);
+        preparedStatement.setInt(11, 0);
     }
 
-    public String getSql(){
-       return  "insert into" +
+    private long zeroPadding(long l){
+        final String s = l + "0000000000";
+        return Long.valueOf(s.substring(0,15));
+    }
+
+    public String getSql() {
+        return "insert into" +
                 " `order` (" +
                 "user_id," +
                 "store_id," +
+                "logistics_info_id," +
                 "order_sn," +
                 "pay_type," +
                 "payment_order_sn," +
@@ -176,14 +179,7 @@ public class InsertTest {
                 "create_time," +
                 "status," +
                 "remark," +
-                "delivery_sn," +
-                "receiver_name," +
-                "receiver_phone," +
-                "receiver_province," +
-                "receiver_city," +
-                "receiver_region," +
-                "receiver_detail_address," +
-                "confirm_status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+                "confirm_status) values (?,?,?,?,?,?,?,?,?,?,?)";
     }
+
 }

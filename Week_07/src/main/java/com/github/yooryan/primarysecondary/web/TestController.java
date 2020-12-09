@@ -32,7 +32,7 @@ public class TestController {
 
     @GetMapping("select")
     public void testSelect(){
-        User user = userService.selectOneUser(4L);
+        User user = userService.selectOneUser(1L);
         System.out.println(user.toString());
     }
 }
