@@ -6,6 +6,7 @@ import com.github.yooryan.entity.Order;
 import com.github.yooryan.mapper.OrderMapper;
 import com.github.yooryan.service.IOrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hmily.annotation.HmilyTCC;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
 
     @Override
+    @HmilyTCC(confirmMethod = "confirm", cancelMethod = "cancel")
     public void submitOrder() {
         final Order order = new Order();
         order.setUserId(IdWorker.getId());
@@ -30,5 +32,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         this.save(order);
         log.info("保存订单成功 ------");
 
+    }
+
+    public void confirm(){
+        log.info("confirm.....");
+    }
+
+    public void cancel(){
+        log.info("cancel.....");
     }
 }

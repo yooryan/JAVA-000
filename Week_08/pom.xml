@@ -14,7 +14,6 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.6.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.yooryan</groupId>
 	<artifactId>miao-mall</artifactId>
@@ -24,7 +23,7 @@
 
 	<properties>
 		<java.version>8</java.version>
-		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 	</properties>
 
 
@@ -67,14 +66,6 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 
 
