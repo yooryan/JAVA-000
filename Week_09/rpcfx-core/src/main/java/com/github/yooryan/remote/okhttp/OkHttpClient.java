@@ -23,7 +23,6 @@ public class OkHttpClient implements RemoteClient {
     @Override
     public RpcfxResponse post(final RpcfxRequest req, final String url) throws IOException {
         String reqJson = JSON.toJSONString(req);
-        System.out.println("req json: "+reqJson);
         // 1.可以复用client
         // 2.尝试使用httpclient或者netty client
         final Request request = new Request.Builder()
@@ -31,7 +30,6 @@ public class OkHttpClient implements RemoteClient {
                 .post(RequestBody.create(JSONTYPE, reqJson))
                 .build();
         String respJson = client.newCall(request).execute().body().string();
-        System.out.println("resp json: "+respJson);
         return JSON.parseObject(respJson, RpcfxResponse.class);
     }
 }

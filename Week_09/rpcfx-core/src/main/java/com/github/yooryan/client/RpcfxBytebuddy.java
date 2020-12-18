@@ -50,7 +50,7 @@ public class RpcfxBytebuddy {
     public static class RpcfxBytebuddyInterceptor implements InvocationHandler {
 
         public static final MediaType JSONTYPE = MediaType.get("application/json; charset=utf-8");
-        private RemoteClient remoteClient = new OkHttpClient();
+        private RemoteClient remoteClient = new NettyHttpClient();
 
         private final Class<?> serviceClass;
         private final String url;
