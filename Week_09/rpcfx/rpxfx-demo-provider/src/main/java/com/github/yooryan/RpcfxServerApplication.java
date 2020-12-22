@@ -2,8 +2,11 @@ package com.github.yooryan;
 
 
 import com.github.yooryan.api.*;
+import com.github.yooryan.server.NettyServer;
 import com.github.yooryan.server.RpcfxInvoker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,14 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class RpcfxServerApplication {
+public class RpcfxServerApplication implements ApplicationRunner {
+
+	@Autowired
+	RpcfxInvoker invoker;
+	@Autowired
+	private NettyServer server;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RpcfxServerApplication.class, args);
 	}
-
-	@Autowired
-	RpcfxInvoker invoker;
 
 	@PostMapping("/")
 	public RpcfxResponse invoke(@RequestBody RpcfxRequest request) {
@@ -49,4 +54,8 @@ public class RpcfxServerApplication {
 		return new OrderServiceImpl();
 	}
 
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		this.server.run();
+	}
 }

@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.yooryan.api.RpcfxRequest;
 import com.github.yooryan.api.RpcfxResponse;
+import com.github.yooryan.protocol.RpcfxDecoder;
+import com.github.yooryan.protocol.RpcfxEncoder;
 import com.github.yooryan.remote.RemoteClient;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -55,9 +57,9 @@ public class NettyHttpClient implements RemoteClient {
                             channel.pipeline().addLast(new HttpClientHandler(req,uri,countDownLatch));
                         }
                     });
+
             ChannelFuture future = bootstrap.connect(uri.getHost(), uri.getPort()).sync();
             future.channel().closeFuture().sync();
-
             //接收服务端返回的数据
             countDownLatch.await();
             AttributeKey<String> key = AttributeKey.valueOf("ServerData");
@@ -86,7 +88,6 @@ public class NettyHttpClient implements RemoteClient {
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
             FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_0, HttpMethod.GET, this.uri.toASCIIString());
             request.content().writeBytes(JSON.toJSONBytes(req, SerializerFeature.DisableCircularReferenceDetect));
             request.headers().add(HttpHeaderNames.CONNECTION,HttpHeaderValues.KEEP_ALIVE);
@@ -95,9 +96,6 @@ public class NettyHttpClient implements RemoteClient {
             request.headers().add(HttpHeaderNames.CONTENT_LENGTH,request.content().readableBytes());
             ctx.writeAndFlush(request);
         }
-
-
-
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

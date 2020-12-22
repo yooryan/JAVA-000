@@ -21,8 +21,4 @@ public class WebServiceServer {
         return "server responses :" + name ;
     }
 
-    public String findUserInfoByName1(String name){
-        System.out.println("---------conn----------");
-        return "server responses :" + name ;
-    }
 }

@@ -33,7 +33,7 @@ public class RpcfxClientApplication {
 		//final OrderService orderService = Rpcfx.create(OrderService.class,"http://localhost:8080/");
 
 	//	final OrderService orderService = Rpcfx.create(OrderService.class, "http://localhost:8080/");
-		final OrderService orderService = RpcfxBytebuddy.create(OrderService.class, "http://localhost:8080/");
+		final OrderService orderService = RpcfxBytebuddy.create(OrderService.class, "http://localhost:8990/");
 		Order order = orderService.findOrderById(1992129);
 		System.out.println(String.format("find order name=%s, amount=%f",order.getName(),order.getAmount()));
 
