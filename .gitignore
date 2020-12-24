@@ -1,33 +1,46 @@
-HELP.md
-.gradle
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**
-!**/src/test/**
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-gradle.properties
-### IntelliJ IDEA ###
-.idea/*
-*.iws
-*.iml
-*.ipr
-logs/
+# maven ignore
 target/
+*.jar
+!.mvn/wrapper/*
+*.war
+*.zip
+*.tar
+*.tar.gz
+.flattened-pom.xml
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# eclipse ignore
+.settings/
+.project
+.classpath
 
-### VS Code ###
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# visual-studio-code ignore
 .vscode/
-/.idea/
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+# system ignore
+.DS_Store
+Thumbs.db
+*.orig
+
+# license check result
+license-list
+
+# grpc compiler
+compiler/gradle.properties
+compiler/build/*
+compiler/.gradle/*
+
+# protobuf
+dubbo-serialization/dubbo-serialization-protobuf/build/*
