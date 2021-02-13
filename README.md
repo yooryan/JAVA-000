@@ -53,7 +53,7 @@ NIO知识总结
 
   ![binaryTree](pic/concurrent.png "kafka集群性能测试")
 
-1.线程的状态
+1. 线程的状态
     - 实例化(NEW)
     - 运行(RUNNABLE)
     - 就绪(READY)
